@@ -15,6 +15,11 @@ public class AppTest
     @Test
     public void shouldAnswerWithTrue()
     {
+        App a = new App();
+        
+        a.foo("even");
+        a.foo("odd");
+        
         assertTrue( true );
     }
 }
