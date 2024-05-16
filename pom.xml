@@ -96,11 +96,38 @@
 				</dependency>
 			</dependencies>
 			<properties>
-				<pit.build.depencenciesDirectory>${project.build.directory}/dependency</pit.build.depencenciesDirectory>
-<!--				<pit.build.depencenciesDirectory>${project.build.directory}/classes</pit.build.depencenciesDirectory>-->
+<!-- 				<pit.build.depencenciesDirectory>${project.build.directory}/dependency</pit.build.depencenciesDirectory> -->
+<!-- 				<pit.build.depencenciesDirectory>${project.build.directory}/zac</pit.build.depencenciesDirectory> -->
+				<pit.build.depencenciesDirectory>${project.build.directory}/classes</pit.build.depencenciesDirectory>
 			</properties>
 			<build>
 				<plugins>
+                  
+					<plugin>
+					    <groupId>org.apache.maven.plugins</groupId>
+					    <artifactId>maven-dependency-plugin</artifactId>
+					    <executions>
+					        <execution>
+					            <id>unpack</id>
+					            <phase>process-resources</phase>
+					            <goals>
+					                <goal>unpack</goal>
+					            </goals>
+					            <configuration>					              
+                                    <outputDirectory>${pit.build.depencenciesDirectory}</outputDirectory>
+					                <artifactItems>
+					                    <artifactItem>
+                                            <groupId>org.apache.commons</groupId>
+                                            <artifactId>commons-lang3</artifactId>
+                                            <version>3.13.0</version>
+					                        <type>jar</type>
+					                    </artifactItem>
+					                </artifactItems>
+					            </configuration>
+					        </execution>
+					    </executions>
+					</plugin>
+                  
 					<plugin>
 						<groupId>org.pitest</groupId>
 						<artifactId>pitest-maven</artifactId>
@@ -108,7 +135,6 @@
 						<configuration>
 							<verbose>true</verbose>
 							<targetClasses>								
-<!-- 								<param>java.lang.String</param>							 -->
 								<param>org.apache.commons.lang3.math.Fraction</param>							
 							</targetClasses>
 							<targetTests>
